@@ -3,9 +3,9 @@ import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FlipMove from "react-flip-move";
 
-function TableItem(props, index) {
+function TableList(props) {
   const items = props.items;
-  const listItems = items.map((item) => {
+  const listItems = items.map((item, index) => {
     return (
       <div className="list" key={item.key}>
         <Table
@@ -18,12 +18,13 @@ function TableItem(props, index) {
           <thead>
             <tr>
               <th style={{ width: "49px", color: "red", background: "yellow" }}>
-                №
+                {index + 1}
               </th>
-              <th style={{ width: "184px" }}></th>
-              <th style={{ width: "185px" }}></th>
-              <th style={{ width: "185px" }}>
+              <th style={{ width: "181px" }}></th>
+              <th style={{ width: "181px" }}></th>
+              <th style={{ width: "165px" }}>
                 <input
+                  style={{ width: "150px" }}
                   id={item.key}
                   value={item.text}
                   onChange={(e) => {
@@ -31,13 +32,15 @@ function TableItem(props, index) {
                   }}
                 />
               </th>
-              <th style={{ width: "131px" }}></th>
-              <th style={{ width: "131px" }}></th>
-              <th></th>
+              <th style={{ width: "120px" }}>
+                <input style={{ width: "110px" }} onChange={(e) => {}} />
+              </th>
+              <th style={{ width: "120px" }}></th>
+              <th style={{ width: "123px" }}></th>
               <th
                 style={{
                   background: "red",
-                  width: "117px",
+                  width: "110px",
                   textAlign: "center",
                   cursor: "pointer",
                 }}
@@ -65,4 +68,4 @@ function TableItem(props, index) {
   );
 }
 
-export default TableItem;
+export default TableList;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TableItem from "./components/TabeItem";
+import TableItem from "./components/TableItem";
 import TableList from "./components/TableList";
 import { Container, Button, Form } from "react-bootstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -7,29 +7,35 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTrash);
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      currentItem: {
-        text: "",
-        key: "",
-      },
-    };
-    this.handleInput = this.handleInput.bind(this);
-    this.addItem = this.addItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.setUpdate = this.setUpdate.bind(this);
-  }
-  handleInput(e) {
+  state = {
+    // show: false,
+    items: [],
+    currentItem: {
+      text: "",
+      key: "",
+    },
+  };
+
+  // handleClose = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ show: false });
+  // };
+
+  // hanleShow = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ show: true });
+  // };
+
+  handleInput = (e) => {
     this.setState({
       currentItem: {
         text: e.target.value,
-        key: Date.now(),
+        key: `key${(+new Date()).toString(16)}`, //Date.now(),
       },
     });
-  }
-  addItem(e) {
+  };
+
+  addItem = (e) => {
     e.preventDefault();
     const newItem = this.state.currentItem;
     console.log(newItem);
@@ -43,14 +49,16 @@ class App extends Component {
         },
       });
     }
-  }
-  deleteItem(key) {
+  };
+
+  deleteItem = (key) => {
     const filteredItems = this.state.items.filter((item) => item.key !== key);
     this.setState({
       items: filteredItems,
     });
-  }
-  setUpdate(text, key) {
+  };
+
+  setUpdate = (text, key) => {
     const items = this.state.items;
     items.map((item) => {
       if (item.key === key) {
@@ -60,13 +68,17 @@ class App extends Component {
     this.setState({
       items: items,
     });
-  }
+  };
+
   render() {
     return (
       <>
         <Container style={{ paddingTop: "50px" }}>
-          <Button variant="primary" className="openForm" onClick={(e) => {}}>
-            {" "}
+          <Button
+            variant="primary"
+            className="openForm"
+            // onClick={this.hanleShow}
+          >
             Добавить
           </Button>
           <TableItem />
@@ -75,7 +87,13 @@ class App extends Component {
             deleteItem={this.deleteItem}
             setUpdate={this.setUpdate}
           />
-          <Form style={{ marginTop: "30px" }} onSubmit={this.addItem}>
+
+          <Form
+            style={{ marginTop: "30px" }}
+            onSubmit={this.addItem}
+            // show={this.state.show}
+            // onHide={this.handleClose}
+          >
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Категория</Form.Label>
               <Form.Control as="select" size="lg">
